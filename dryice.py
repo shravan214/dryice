@@ -4,8 +4,8 @@ import numpy as np
 import pickle
 
 # Load MLP model and scaler
-with open("mlp_model.pkl", "rb") as f:
-    mlp_model = pickle.load(f)
+with open("train_mlp.pkl", "rb") as f:
+    train_mlp = pickle.load(f)
 with open("scaler.pkl", "rb") as f:
     scaler = pickle.load(f)
 
@@ -24,5 +24,5 @@ fiber_volume = st.slider("Fiber volume fraction (%)", 0.0, 5.0, 1.0)
 if st.button("Predict"):
     input_data = np.array([[cement, water, superplasticizer, silica_fume, aspect_ratio, fiber_volume]])
     input_data_scaled = scaler.transform(input_data)  # Scale input before prediction
-    prediction = mlp_model.predict(input_data_scaled)[0]
+    prediction = train_mlp.predict(input_data_scaled)[0]
     st.write(f"### Predicted Flexural Strength: {prediction:.2f} MPa")
